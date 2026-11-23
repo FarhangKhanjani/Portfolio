@@ -1,0 +1,45 @@
+---
+/**
+ * The single-page home view, shared by "/" (EN) and "/de/" (DE).
+ *
+ * PHASE 1 PLACEHOLDER: this only proves that fonts, tokens, i18n and the
+ * content collection are wired up. The real sections arrive in Phase 3 to 5.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { languages, type Lang } from '@/i18n/config';
+import { getAlternates, pickLocalized, useTranslations } from '@/i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const alternates = getAlternates(Astro.url).filter((alt) => alt.lang !== lang);
+---
+
+<BaseLayout lang={lang}>
+  <main id="main" class="mx-auto max-w-(--container-content) px-(--spacing-gutter) py-(--spacing-section)">
+    <p class="text-sm tracking-widest text-text-muted uppercase">Phase 1 setup check</p>
+    <h1 class="mt-4 font-display text-7xl font-extrabold uppercase sm:text-9xl">{t.hero.name}</h1>
+    <p class="mt-4 font-display text-3xl font-bold text-accent">{t.hero.positioning}</p>
+    <p class="mt-2 text-text-muted">{t.hero.status}</p>
+
+    <h2 class="mt-12 text-2xl font-bold uppercase">Projects loaded: {projects.length}</h2>
+    <ul class="mt-2 list-disc pl-6">
+      {projects.map((p) => <li>{p.data.title}: {pickLocalized(p.data.tagline, lang).text}</li>)}
+    </ul>
+
+    <nav aria-label={t.a11y.switchLanguage} class="mt-12">
+      {alternates.map((alt) => (
+        <a href={alt.path} hreflang={alt.lang} lang={alt.lang} class="text-accent underline underline-offset-4">
+          {languages[alt.lang]}
+        </a>
+      ))}
+    </nav>
+  </main>
+</BaseLayout>

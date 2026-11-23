@@ -1,0 +1,60 @@
+---
+/**
+ * BaseLayout: the HTML shell for every page.
+ * Handles <head> meta, hreflang alternates, font preloading and the skip link.
+ * Open Graph image, JSON-LD and analytics are added in Phase 6.
+ */
+import '@/styles/global.css';
+import { localeTags, type Lang } from '@/i18n/config';
+import { getAlternates, useTranslations } from '@/i18n/utils';
+
+interface Props {
+  lang: Lang;
+  /** Page title. Falls back to the site title. */
+  title?: string;
+  description?: string;
+}
+
+const { lang, title, description } = Astro.props;
+const t = useTranslations(lang);
+
+const pageTitle = title ? `${title} | ${t.meta.siteName}` : t.meta.title;
+const pageDescription = description ?? t.meta.description;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const alternates = getAlternates(Astro.url);
+---
+
+<!doctype html>
+<html lang={localeTags[lang].html}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0b0a09" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    {/* hreflang: tells search engines the EN and DE versions belong together. */}
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={localeTags[alt.lang].html} href={new URL(alt.path, Astro.site)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL(alternates[0]!.path, Astro.site)} />
+
+    {/* Preload only the Latin subsets: they cover English and German. */}
+    <link rel="preload" href="/fonts/big-shoulders-display-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body class="min-h-dvh bg-bg text-text antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-bg"
+    >
+      {t.a11y.skipToContent}
+    </a>
+    <slot />
+  </body>
+</html>
