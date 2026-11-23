@@ -16,7 +16,7 @@ export const en = {
     opensInNewTab: '(opens in a new tab)',
   },
   nav: {
-    about: 'About',
+    about: 'Story',
     work: 'Work',
     skills: 'Skills',
     experience: 'Experience',
@@ -24,8 +24,13 @@ export const en = {
   },
   hero: {
     name: 'Farhang',
-    positioning: 'AI engineer who ships.',
-    status: 'MSc AI @ JKU, open to Werkstudent roles in Vienna',
+    /** Headline, split so the second half can be set in italic. */
+    headlineStart: 'I used to build monsters in my head.',
+    headlineEnd: 'Now I build things that work.',
+    /** [TODO: confirm subline] Drafted in Phase 2, not yet approved. */
+    subline: 'AI engineer focused on computer vision and healthcare, learning to ship one small version at a time.',
+    /** Bracketed narrator caption at the bottom of the hero. Holds the key facts. */
+    caption: 'MSc AI @ JKU Linz · open to Werkstudent roles in Vienna, up to 20h/week',
     ctaWork: 'See my work',
     ctaCv: 'Download CV',
   },

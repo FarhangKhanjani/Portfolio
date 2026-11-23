@@ -18,7 +18,7 @@ export const de: Dictionary = {
     opensInNewTab: '(öffnet in neuem Tab)',
   },
   nav: {
-    about: 'Über mich',
+    about: 'Geschichte',
     work: 'Projekte',
     skills: 'Skills',
     experience: 'Erfahrung',
@@ -26,8 +26,10 @@ export const de: Dictionary = {
   },
   hero: {
     name: 'Farhang',
-    positioning: 'KI-Engineer, der liefert.',
-    status: 'MSc AI @ JKU, offen für Werkstudentenstellen in Wien',
+    headlineStart: 'Früher baute ich Monster in meinem Kopf.',
+    headlineEnd: 'Heute baue ich Dinge, die funktionieren.',
+    subline: 'KI-Engineer mit Fokus auf Computer Vision und Medizin. Ich lerne, eine kleine Version nach der anderen zu liefern.',
+    caption: 'MSc AI @ JKU Linz · offen für Werkstudentenstellen in Wien, bis 20 h/Woche',
     ctaWork: 'Meine Projekte',
     ctaCv: 'Lebenslauf herunterladen',
   },

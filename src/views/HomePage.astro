@@ -25,11 +25,13 @@ const alternates = getAlternates(Astro.url).filter((alt) => alt.lang !== lang);
 <BaseLayout lang={lang}>
   <main id="main" class="mx-auto max-w-(--container-content) px-(--spacing-gutter) py-(--spacing-section)">
     <p class="text-sm tracking-widest text-text-muted uppercase">Phase 1 setup check</p>
-    <h1 class="mt-4 font-display text-7xl font-extrabold uppercase sm:text-9xl">{t.hero.name}</h1>
-    <p class="mt-4 font-display text-3xl font-bold text-accent">{t.hero.positioning}</p>
-    <p class="mt-2 text-text-muted">{t.hero.status}</p>
+    <h1 class="mt-4 max-w-3xl text-5xl sm:text-7xl">
+      {t.hero.headlineStart} <em>{t.hero.headlineEnd}</em>
+    </h1>
+    <p class="mt-6 max-w-(--container-prose) text-lg text-text/80">{t.hero.subline}</p>
+    <p class="mt-4 text-sm text-text-muted">[{t.hero.caption}]</p>
 
-    <h2 class="mt-12 text-2xl font-bold uppercase">Projects loaded: {projects.length}</h2>
+    <h2 class="mt-12 text-3xl">Projects loaded: {projects.length}</h2>
     <ul class="mt-2 list-disc pl-6">
       {projects.map((p) => <li>{p.data.title}: {pickLocalized(p.data.tagline, lang).text}</li>)}
     </ul>
