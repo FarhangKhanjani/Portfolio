@@ -4,31 +4,49 @@
  * Design tokens live in the @theme block below. Tailwind turns each token into
  * utilities automatically, e.g. --color-accent -> `text-accent`, `bg-accent`.
  *
- * NOTE (Phase 1): the color values are PROVISIONAL. They will be replaced with
- * the palette you pick in Phase 2. Token names are meant to stay stable.
+ * Design direction: "Chapters" (locked in Phase 2, see docs/design.md).
+ * Cinematic, story-led, olive near-black with light used as the accent.
  */
 @import 'tailwindcss';
 
 /* ---------------------------------------------------------------------------
- * Fonts (self-hosted, variable weight, no runtime request to Google).
+ * Fonts (self-hosted, no runtime request to Google).
  * Latin covers English + German (ä ö ü ß). Latin-Ext only downloads if a page
  * actually uses one of its characters, thanks to unicode-range.
  * ------------------------------------------------------------------------- */
 @font-face {
-  font-family: 'Big Shoulders Display';
+  font-family: 'Instrument Serif';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
   font-display: swap;
-  src: url('/fonts/big-shoulders-display-latin-wght-normal.woff2') format('woff2');
+  src: url('/fonts/instrument-serif-latin-400-normal.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
     U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: 'Big Shoulders Display';
+  font-family: 'Instrument Serif';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
   font-display: swap;
-  src: url('/fonts/big-shoulders-display-latin-ext-wght-normal.woff2') format('woff2');
+  src: url('/fonts/instrument-serif-latin-ext-400-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-latin-400-italic.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
+    U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-latin-ext-400-italic.woff2') format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
     U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
@@ -53,36 +71,38 @@
 
 /* ---------------------------------------------------------------------------
  * Design tokens
+ * All text colors below pass WCAG AA (>= 4.5:1) on both --color-bg and
+ * --color-surface. Ratios are noted next to each one (measured on --color-bg).
  * ------------------------------------------------------------------------- */
 @theme {
-  /* Typography */
-  --font-display: 'Big Shoulders Display', 'Arial Narrow', system-ui, sans-serif;
+  /* Typography: serif for headings and story lines, Inter for everything else */
+  --font-serif: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
-  /* Surfaces (PROVISIONAL: warm near-black) */
-  --color-bg: #0b0a09;
-  --color-surface: #161311;
-  --color-surface-raised: #1f1b18;
-  --color-border: #2e2723;
+  /* Surfaces: olive near-black, sampled from the hero image so it blends in */
+  --color-bg: #0e1710;
+  --color-surface: #152016;
+  --color-surface-raised: #1c2a1d;
+  --color-border: #26301f;
 
-  /* Text (PROVISIONAL) */
-  --color-text: #f5efe8;
-  --color-text-muted: #b3a79b;
+  /* Text */
+  --color-text: #ece8dc; /* 14.9:1 warm off-white */
+  --color-text-muted: #a3a893; /* 7.5:1 sage grey */
 
-  /* Accent: warm orange / fire (PROVISIONAL).
-   * Contrast rule: only --color-accent (>= 4.5:1 on --color-bg) may be used for
-   * normal-size text. --color-accent-hot and --color-accent-deep are for
-   * gradients, borders, large display text and decoration only. */
-  --color-accent: #ff6a1a;
-  --color-accent-hot: #ffb347;
-  --color-accent-deep: #d9361c;
+  /* Accent = light, not paint. Pale gold for emphasis (italic story lines, links). */
+  --color-accent: #ecdcab; /* 13.4:1 */
+
+  /* Iridescent hints from the hero light. Small labels, lines and glows only. */
+  --color-iris-teal: #9ad4c8; /* 11.0:1 */
+  --color-iris-violet: #bfb0ea; /* 9.2:1 */
 
   /* Spacing additions on top of Tailwind's default scale */
-  --spacing-gutter: clamp(1rem, 4vw, 2.5rem);
-  --spacing-section: clamp(4rem, 10vw, 8rem);
+  --spacing-gutter: clamp(1rem, 4vw, 3rem);
+  --spacing-section: clamp(4.5rem, 12vw, 9rem);
 
   /* Layout */
-  --container-content: 72rem;
+  --container-content: 70rem;
+  --container-prose: 40rem;
 
   /* Motion */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -110,14 +130,21 @@
   h1,
   h2,
   h3 {
-    font-family: var(--font-display);
-    line-height: 1.05;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.01em;
     text-wrap: balance;
+  }
+
+  /* Italic emphasis inside headings glows in the accent color. */
+  :is(h1, h2, h3) em {
+    color: var(--color-accent);
   }
 
   /* Visible, high-contrast focus ring for keyboard users everywhere. */
   :focus-visible {
-    outline: 2px solid var(--color-accent-hot);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 2px;
   }
