@@ -18,7 +18,7 @@ npm run preview   # serve the built site locally
 
 ```text
 public/
-  fonts/            Self-hosted variable fonts (Big Shoulders Display, Inter) + licenses
+  fonts/            Self-hosted fonts (Instrument Serif, Inter) + licenses
   demos/            Demo clips (MP4/WebM), served as-is
   favicon.svg
 src/
@@ -37,6 +37,9 @@ src/
   views/            Page bodies shared by EN and DE routes
   styles/global.css Tailwind import, design tokens, @font-face
   content.config.ts Project schema (validated at build time)
+docs/
+  design.md         Design direction, tokens and rules
+  story.md          The home page story, chapter by chapter
 ```
 
 ## Add a project
