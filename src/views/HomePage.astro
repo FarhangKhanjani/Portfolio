@@ -2,13 +2,18 @@
 /**
  * The single-page home view, shared by "/" (EN) and "/de/" (DE).
  *
- * PHASE 1 PLACEHOLDER: this only proves that fonts, tokens, i18n and the
- * content collection are wired up. The real sections arrive in Phase 3 to 5.
+ * Structure follows docs/story.md: hero, prologue, four chapters and an
+ * epilogue, then the plain, scannable sections (skills, experience, contact).
  */
-import { getCollection } from 'astro:content';
+import monsterImage from '@/assets/images/monster-light-tunnel.jpg';
+import Chapter from '@/components/Chapter.astro';
+import Hero from '@/components/Hero.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import { persianMarkers, site } from '@/config/site';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { languages, type Lang } from '@/i18n/config';
-import { getAlternates, pickLocalized, useTranslations } from '@/i18n/utils';
+import type { Lang } from '@/i18n/config';
+import { useTranslations } from '@/i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -16,32 +21,78 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-const alternates = getAlternates(Astro.url).filter((alt) => alt.lang !== lang);
+const s = t.story;
+
+// Sections still to be built in Phase 5. They exist now so the nav anchors work.
+const upcoming = [
+  { id: 'skills', title: t.sections.skills },
+  { id: 'experience', title: t.sections.experience },
+  { id: 'contact', title: t.sections.contact },
+];
 ---
 
 <BaseLayout lang={lang}>
-  <main id="main" class="mx-auto max-w-(--container-content) px-(--spacing-gutter) py-(--spacing-section)">
-    <p class="text-sm tracking-widest text-text-muted uppercase">Phase 1 setup check</p>
-    <h1 class="mt-4 max-w-3xl text-5xl sm:text-7xl">
-      {t.hero.headlineStart} <em>{t.hero.headlineEnd}</em>
-    </h1>
-    <p class="mt-6 max-w-(--container-prose) text-lg text-text/80">{t.hero.subline}</p>
-    <p class="mt-4 text-sm text-text-muted">[{t.hero.caption}]</p>
+  <SiteHeader lang={lang} />
 
-    <h2 class="mt-12 text-3xl">Projects loaded: {projects.length}</h2>
-    <ul class="mt-2 list-disc pl-6">
-      {projects.map((p) => <li>{p.data.title}: {pickLocalized(p.data.tagline, lang).text}</li>)}
-    </ul>
+  <main id="main">
+    <Hero lang={lang} />
 
-    <nav aria-label={t.a11y.switchLanguage} class="mt-12">
-      {alternates.map((alt) => (
-        <a href={alt.path} hreflang={alt.lang} lang={alt.lang} class="text-accent underline underline-offset-4">
-          {languages[alt.lang]}
-        </a>
-      ))}
-    </nav>
+    <div id="story">
+      <Chapter id="prologue" marker={persianMarkers.prologue} {...s.prologue}>
+        {s.prologue.body.map((p) => <p>{p}</p>)}
+      </Chapter>
+
+      <Chapter
+        id="monster"
+        marker={persianMarkers.monster}
+        {...s.monster}
+        image={monsterImage}
+        imageAlt={s.monster.imageAlt}
+        imagePosition="24% 50%"
+      >
+        {s.monster.body.map((p) => <p>{p}</p>)}
+      </Chapter>
+
+      <Chapter id="turning-point" marker={persianMarkers.turn} {...s.turn}>
+        {s.turn.body.map((p) => <p>{p}</p>)}
+        <p>
+          {s.turn.proofBefore}<a href={site.repoUrl} target="_blank" rel="noopener noreferrer"
+            >{s.turn.proofLink}<span class="sr-only"> {t.a11y.opensInNewTab}</span></a
+          >{s.turn.proofAfter}
+        </p>
+      </Chapter>
+    </div>
+
+    <Chapter id="work" marker={persianMarkers.proof} {...s.proof}>
+      <p>{s.proof.intro}</p>
+      {/* [TODO: Phase 4] Featured project cards and the "More projects" grid go here. */}
+      <p class="text-sm text-text-muted">[{t.sections.comingSoon}]</p>
+    </Chapter>
+
+    <Chapter id="why" marker={persianMarkers.why} {...s.why}>
+      {s.why.body.map((p) => <p>{p}</p>)}
+    </Chapter>
+
+    <Chapter id="vienna" marker={persianMarkers.vienna} {...s.vienna}>
+      {s.vienna.body.map((p) => <p>{p}</p>)}
+    </Chapter>
+
+    {
+      upcoming.map((section) => (
+        <section
+          id={section.id}
+          aria-labelledby={`${section.id}-title`}
+          class="mx-auto max-w-(--container-content) px-(--spacing-gutter) pt-(--spacing-section)"
+        >
+          {/* [TODO: Phase 5] Build this section. */}
+          <h2 id={`${section.id}-title`} class="border-t border-border pt-6 text-4xl sm:text-5xl">
+            {section.title}
+          </h2>
+          <p class="mt-4 text-sm text-text-muted">[{t.sections.comingSoon}]</p>
+        </section>
+      ))
+    }
   </main>
+
+  <SiteFooter lang={lang} />
 </BaseLayout>

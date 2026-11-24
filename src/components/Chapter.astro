@@ -1,0 +1,105 @@
+---
+/**
+ * One chapter of the home page story.
+ *
+ * Layout: a marker column (Persian numeral, label, meta) next to the
+ * headline and body. Optionally opens with a full-width cinematic image
+ * that fades into the page background.
+ *
+ * Body content goes in the default slot.
+ */
+import type { ImageMetadata } from 'astro';
+import { Picture } from 'astro:assets';
+
+interface Props {
+  id: string;
+  /** Persian numeral or word, decorative. */
+  marker: string;
+  /** e.g. "Chapter I" */
+  label: string;
+  /** e.g. "The monster" or "2017" */
+  meta: string;
+  headlineStart: string;
+  /** Rendered in italic accent color. */
+  headlineEnd: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  /** CSS object-position for the image on small screens. */
+  imagePosition?: string;
+}
+
+const { id, marker, label, meta, headlineStart, headlineEnd, image, imageAlt = '', imagePosition = '50% 50%' } =
+  Astro.props;
+const headingId = `${id}-title`;
+const widths = image ? [640, 960, 1280, 1920].filter((w) => w < image.width).concat(image.width) : [];
+---
+
+<section id={id} aria-labelledby={headingId} class="chapter relative">
+  {
+    image && (
+      <figure class="chapter-figure relative isolate h-[min(70vh,44rem)] min-h-80 overflow-hidden">
+        <Picture
+          src={image}
+          formats={['avif', 'webp']}
+          widths={widths}
+          sizes="100vw"
+          alt={imageAlt}
+          loading="lazy"
+          decoding="async"
+          class="absolute inset-0 -z-10 h-full w-full object-cover"
+          style={`object-position: ${imagePosition}`}
+        />
+        <div class="chapter-figure-fade absolute inset-0" aria-hidden="true" />
+      </figure>
+    )
+  }
+
+  <div
+    class:list={[
+      'mx-auto grid max-w-(--container-content) gap-6 px-(--spacing-gutter) md:grid-cols-[13rem_1fr] md:gap-12',
+      image ? 'relative -mt-20 md:-mt-14' : 'pt-(--spacing-section)',
+    ]}
+  >
+    <div class="border-t border-border pt-4 text-xs tracking-[0.14em] text-text-muted uppercase">
+      <span aria-hidden="true" lang="fa" dir="rtl" class="mb-2 block text-left font-persian text-3xl tracking-normal text-accent normal-case">
+        {marker}
+      </span>
+      <span class="block">{label}</span>
+      <span class="mt-1.5 block text-iris-teal">{meta}</span>
+    </div>
+
+    <div>
+      <h2 id={headingId} class="text-[2.4rem] sm:text-5xl lg:text-6xl">
+        {headlineStart} <em>{headlineEnd}</em>
+      </h2>
+      <div class="chapter-body mt-6 max-w-(--container-prose) space-y-5 text-[1.0625rem] leading-[1.75] text-text/85 sm:text-lg">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Blend the image into the page at the top and bottom edges. */
+  .chapter-figure-fade {
+    background:
+      linear-gradient(to bottom, var(--color-bg) 0%, transparent 22%),
+      linear-gradient(to top, var(--color-bg) 0%, rgb(14 23 16 / 0.6) 25%, transparent 55%);
+  }
+
+  @media (min-width: 64rem) {
+    .chapter-figure :global(img) {
+      object-position: 30% 50% !important;
+    }
+  }
+
+  .chapter-body :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  .chapter-body :global(a:hover) {
+    text-decoration-thickness: 2px;
+  }
+</style>
