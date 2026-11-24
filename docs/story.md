@@ -1,7 +1,7 @@
 # Story (draft v1)
 
-Source of truth for the home page narrative. Copy rule: no em dashes.
-Status: approved direction, wording still open for edits.
+The home page narrative. The live copy is in `src/i18n/translations/en.ts` and `de.ts`;
+keep this file in sync when the story changes. Copy rule: no em dashes.
 
 ## Hero
 
@@ -11,7 +11,7 @@ Status: approved direction, wording still open for edits.
 - Caption: `[MSc AI @ JKU Linz · open to Werkstudent roles in Vienna, up to 20h/week]`
 - Buttons: See my work, Download CV
 
-## Prologue · آغاز · 2017
+## Prologue · آغاز ("beginning") · 2017
 
 > It started with one interview.
 >
@@ -31,6 +31,8 @@ Status: approved direction, wording still open for edits.
 
 ## Chapter II · ۲ · The turning point
 
+> Ship it small. *Then let it grow.*
+>
 > Moving to Austria changed that. Far from everything familiar, there was nowhere to hide from
 > myself, so I stopped running from the fear of failing. Now I build the smallest working
 > version first, ship it, then let it grow.
@@ -41,16 +43,25 @@ Status: approved direction, wording still open for edits.
 
 ## Chapter III · ۳ · The proof
 
-Featured projects.
+> Things that *work.*
+>
+> Real projects for real clients and real problems. Each one shows the problem, my approach,
+> the result and a demo.
+
+Featured projects follow (Phase 4).
 
 ## Chapter IV · ۴ · The why
 
+> Why *medicine.*
+>
 > My mom lives with diabetes, and I've always been curious about how the body and the brain
 > work. That's why I want to work where AI meets medicine: helping people live better with
 > diseases like hers.
 
-## Closing (above Contact) · Vienna
+## Epilogue · فردا ("tomorrow") · Vienna
 
+> Next stop: *Vienna.*
+>
 > Since I was a teenager, Vienna has been my picture of a modern city where you don't lose
 > your soul: history, art and people in every street. That's where I want to build.
 

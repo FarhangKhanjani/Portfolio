@@ -23,7 +23,8 @@ public/
   favicon.svg
 src/
   assets/images/    Images processed by Astro (WebP/AVIF, resized, lazy loaded)
-  components/       Astro components (static HTML, no JS)
+  config/site.ts    Repo URL, personal links, Persian chapter markers
+  components/       Astro components (Hero, Chapter, SiteHeader, SiteFooter, ...)
     islands/        Svelte components that hydrate in the browser
     demos/          Interactive project demos (before/after slider, etc.)
   content/
@@ -88,4 +89,4 @@ build command `npm run build`, output directory `dist`.
 
 ## License
 
-Code: [TODO: license]. Fonts: SIL Open Font License, see `public/fonts/`.
+Code: [TODO: license]. Fonts (Instrument Serif, Inter, Vazirmatn): SIL Open Font License, see `public/fonts/`.

@@ -29,7 +29,7 @@ scene, elegant serif type next to a clean sans, light inside darkness, and a bra
 |---|---|---|
 | Headings, story lines | Instrument Serif 400 + italic | italic part of a headline is set in the accent color |
 | Body, UI | Inter (variable) | |
-| Chapter numerals | Persian digits (planned: Vazirmatn subset, about 3 to 5 KB) | Prologue uses the word "آغاز" instead of ۰, which reads as a dot |
+| Chapter markers | Vazirmatn, subset to 3 KB (`public/fonts/vazirmatn-persian-subset.woff2`) | ۱ to ۴ for chapters, "آغاز" (beginning) for the prologue, "فردا" (tomorrow) for the epilogue. Decorative, hidden from screen readers |
 
 ## Color tokens
 
@@ -50,7 +50,15 @@ Sampled from the hero image so the photo blends into the page. Contrast measured
 If the final hero image changes, re-sample `bg`/`surface` from its darkest area so the
 image edge stays invisible.
 
-## Hero image
+## Images
 
-Generated with Higgsfield (GPT Image). Final choice pending. Production needs about
-2560px wide, served as AVIF/WebP with responsive sizes, `fetchpriority="high"`.
+Generated with Higgsfield (GPT Image), chosen in Phase 2:
+
+- Hero: `src/assets/images/hero-rising-light.jpg`, light rising from a laptop at blue hour
+  ("Now I build things that work").
+- Chapter I: `src/assets/images/monster-light-tunnel.jpg`, a tunnel of fragments
+  ("Every idea grew into a monster").
+
+Astro serves them as AVIF/WebP in several widths. The hero loads eagerly with
+`fetchpriority="high"`, the chapter image lazily. Widths above the source size are skipped,
+so replacing a file with a larger version improves quality without code changes.
