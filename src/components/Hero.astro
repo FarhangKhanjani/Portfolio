@@ -1,0 +1,120 @@
+---
+/**
+ * Hero: full-screen cinematic image, story headline, CTAs and the
+ * bracketed narrator caption that carries the key facts.
+ *
+ * The image is the LCP element, so it loads eagerly with high priority and
+ * is served as AVIF/WebP in several widths. Widths above the source size are
+ * skipped automatically, so swapping in a larger source improves quality
+ * without touching this file.
+ */
+import { Picture } from 'astro:assets';
+import heroImage from '@/assets/images/hero-rising-light.jpg';
+import type { Lang } from '@/i18n/config';
+import { useTranslations } from '@/i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const widths = [640, 960, 1280, 1920, 2560].filter((w) => w < heroImage.width).concat(heroImage.width);
+---
+
+<section class="hero relative isolate flex h-svh min-h-[38rem] flex-col overflow-hidden" aria-labelledby="hero-title">
+  <Picture
+    src={heroImage}
+    formats={['avif', 'webp']}
+    widths={widths}
+    sizes="100vw"
+    alt={t.hero.imageAlt}
+    loading="eager"
+    fetchpriority="high"
+    class="hero-image absolute inset-0 -z-20 h-full w-full object-cover"
+  />
+  <div class="hero-scrim absolute inset-0 -z-10" aria-hidden="true"></div>
+
+  <div class="hero-copy relative mx-auto w-full max-w-[90rem] px-(--spacing-gutter) pt-28 md:pt-[16vh]">
+    <h1 id="hero-title" class="max-w-[14ch] text-[2.35rem] sm:max-w-[16ch] sm:text-6xl lg:max-w-[22ch] lg:text-[4.25rem]">
+      {t.hero.headlineStart} <em>{t.hero.headlineEnd}</em>
+    </h1>
+    <p class="mt-5 max-w-[34rem] text-base leading-relaxed text-text/85 sm:text-lg">{t.hero.subline}</p>
+    <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+      <a
+        href="#work"
+        class="rounded-full bg-text px-6 py-3 text-[0.9375rem] font-semibold text-bg shadow-[0_0_32px_rgba(236,220,171,0.25)] transition hover:bg-accent"
+      >
+        {t.hero.ctaWork}
+      </a>
+      {/* [TODO: CV files] public/cv.pdf and public/de/lebenslauf.pdf */}
+      <a
+        href={t.hero.cvHref}
+        download
+        class="border-b border-text/40 pb-0.5 text-[0.9375rem] transition-colors hover:border-accent hover:text-accent"
+      >
+        {t.hero.ctaCv}
+      </a>
+    </div>
+  </div>
+
+  <div
+    class="relative mx-auto mt-auto flex w-full max-w-[90rem] items-end justify-between gap-6 px-(--spacing-gutter) pb-6 md:pb-8"
+  >
+    <p class="hero-caption max-w-[30rem] text-[0.8125rem] leading-relaxed text-text/90 sm:max-w-[44rem] sm:text-sm">
+      [{t.hero.caption}]
+    </p>
+    <a
+      href="#story"
+      class="hidden shrink-0 text-xs tracking-[0.14em] text-text-muted uppercase transition-colors hover:text-text sm:block"
+    >
+      {t.hero.scrollCue} <span aria-hidden="true">↓</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  /* Keep the figure in frame on narrow screens. */
+  .hero-image {
+    object-position: 24% 55%;
+  }
+
+  /* Soft dark gradients: top for the header, left for the headline, bottom to blend into the page. */
+  .hero-scrim {
+    background:
+      linear-gradient(to bottom, rgb(14 23 16 / 0.75) 0%, rgb(14 23 16 / 0.6) 42%, transparent 66%),
+      linear-gradient(to top, var(--color-bg) 0%, rgb(14 23 16 / 0.55) 18%, transparent 40%);
+  }
+
+  @media (min-width: 64rem) {
+    .hero-image {
+      object-position: 30% 50%;
+    }
+    .hero-scrim {
+      background:
+        radial-gradient(ellipse 55% 60% at 18% 30%, rgb(14 23 16 / 0.7), transparent 70%),
+        linear-gradient(to bottom, rgb(14 23 16 / 0.5) 0%, transparent 25%),
+        linear-gradient(to top, var(--color-bg) 0%, rgb(14 23 16 / 0.4) 14%, transparent 32%);
+    }
+  }
+
+  /* Very slow drift. Switched off by the global reduced-motion rule. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-image {
+      animation: hero-drift 40s ease-in-out infinite alternate;
+    }
+  }
+  @keyframes hero-drift {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.06) translate3d(-0.5%, -0.5%, 0);
+    }
+  }
+
+  .hero-caption {
+    text-shadow: 0 1px 12px rgb(14 23 16 / 0.8);
+  }
+</style>
