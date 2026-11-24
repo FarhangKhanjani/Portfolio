@@ -1,0 +1,41 @@
+---
+/** Site footer: language toggle, "built with" note, link to this site's source. */
+import LanguageToggle from '@/components/LanguageToggle.astro';
+import { site } from '@/config/site';
+import type { Lang } from '@/i18n/config';
+import { useTranslations } from '@/i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-(--spacing-section) border-t border-border">
+  <div
+    class="mx-auto flex max-w-(--container-content) flex-col gap-6 px-(--spacing-gutter) py-10 text-sm text-text-muted sm:flex-row sm:items-center sm:justify-between"
+  >
+    <p>
+      <span class="font-serif text-lg text-text">{t.footer.rights}</span>
+      <span class="mx-2" aria-hidden="true">·</span>
+      {year}
+      <span class="mx-2" aria-hidden="true">·</span>
+      {t.footer.builtWith}
+    </p>
+    <div class="flex items-center gap-6">
+      <a
+        href={site.repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="underline decoration-border underline-offset-4 transition-colors hover:text-text hover:decoration-accent"
+      >
+        {t.footer.source}
+        <span class="sr-only">{t.a11y.opensInNewTab}</span>
+      </a>
+      <LanguageToggle lang={lang} />
+    </div>
+  </div>
+</footer>

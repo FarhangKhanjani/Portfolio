@@ -1,0 +1,49 @@
+---
+/**
+ * EN / DE switch. Links to the same page in the other language.
+ * The current language is plain text marked with aria-current.
+ */
+import { languages, type Lang } from '@/i18n/config';
+import { getAlternates, useTranslations } from '@/i18n/utils';
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+
+const { lang, class: className } = Astro.props;
+const t = useTranslations(lang);
+const alternates = getAlternates(Astro.url);
+---
+
+<nav aria-label={t.a11y.switchLanguage} class:list={['text-[0.8125rem] tracking-[0.08em]', className]}>
+  <ul class="flex items-center gap-1.5">
+    {
+      alternates.map((alt, i) => (
+        <li class="flex items-center gap-1.5">
+          {i > 0 && (
+            <span aria-hidden="true" class="text-text-muted">
+              /
+            </span>
+          )}
+          {alt.lang === lang ? (
+            <span aria-current="true" class="font-medium text-text">
+              {alt.lang.toUpperCase()}
+              <span class="sr-only">({t.a11y.currentLanguage})</span>
+            </span>
+          ) : (
+            <a
+              href={alt.path}
+              hreflang={alt.lang}
+              lang={alt.lang}
+              aria-label={languages[alt.lang]}
+              class="rounded-sm text-text-muted transition-colors hover:text-text"
+            >
+              {alt.lang.toUpperCase()}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>
