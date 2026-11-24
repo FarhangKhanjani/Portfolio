@@ -69,6 +69,17 @@
     U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* Persian chapter markers only: a 3 KB subset of Vazirmatn (digits ۱ to ۴,
+ * "آغاز" and "فردا"). Regenerate with pyftsubset if you add new characters. */
+@font-face {
+  font-family: 'Vazirmatn Subset';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/vazirmatn-persian-subset.woff2') format('woff2');
+  unicode-range: U+0600-06FF, U+FB50-FDFF, U+FE70-FEFF;
+}
+
 /* ---------------------------------------------------------------------------
  * Design tokens
  * All text colors below pass WCAG AA (>= 4.5:1) on both --color-bg and
@@ -78,6 +89,7 @@
   /* Typography: serif for headings and story lines, Inter for everything else */
   --font-serif: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-persian: 'Vazirmatn Subset', 'Vazirmatn', Tahoma, sans-serif;
 
   /* Surfaces: olive near-black, sampled from the hero image so it blends in */
   --color-bg: #0e1710;
@@ -147,6 +159,22 @@
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 2px;
+  }
+
+  /* Anchor targets land below the fixed header. */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+
+  /* Subtle film grain over the whole page (static, no animation). */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   ::selection {
