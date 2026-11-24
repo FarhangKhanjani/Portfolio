@@ -6,8 +6,8 @@ keep this file in sync when the story changes. Copy rule: no em dashes.
 ## Hero
 
 - Headline: *I used to build monsters in my head.* **Now I build things that work.** (approved)
-- Subline: "AI engineer focused on computer vision and healthcare, learning to ship one small
-  version at a time." `[TODO: confirm subline]`
+- Subline: "I turn real problems into working AI: computer vision, LLM pipelines and classic
+  machine learning. Small first, tested, shipped." (approved)
 - Caption: `[MSc AI @ JKU Linz · open to Werkstudent roles in Vienna, up to 20h/week]`
 - Buttons: See my work, Download CV
 
@@ -38,7 +38,7 @@ keep this file in sync when the story changes. Copy rule: no em dashes.
 > version first, ship it, then let it grow.
 >
 > I build with AI, not just on it. AI agents help me break a monster into small steps, draft
-> and review. I make the calls, test everything, and understand every line I ship. This site
+> and review. I make the calls, test everything, and I don't ship what I can't explain. This site
 > is proof: built in small phases, every commit public on GitHub.
 
 ## Chapter III · ۳ · The proof

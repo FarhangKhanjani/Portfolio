@@ -31,8 +31,8 @@ export const en = {
     /** Headline, split so the second half can be set in italic. */
     headlineStart: 'I used to build monsters in my head.',
     headlineEnd: 'Now I build things that work.',
-    /** [TODO: confirm subline] Drafted in Phase 2, not yet approved. */
-    subline: 'AI engineer focused on computer vision and healthcare, learning to ship one small version at a time.',
+    subline:
+      'I turn real problems into working AI: computer vision, LLM pipelines and classic machine learning. Small first, tested, shipped.',
     /** Bracketed narrator caption at the bottom of the hero. Holds the key facts. */
     caption: 'MSc AI @ JKU Linz · open to Werkstudent roles in Vienna, up to 20h/week',
     ctaWork: 'See my work',
@@ -72,7 +72,7 @@ export const en = {
       headlineEnd: 'Then let it grow.',
       body: [
         'Moving to Austria changed that. Far from everything familiar, there was nowhere to hide from myself, so I stopped running from the fear of failing. Now I build the smallest working version first, ship it, then let it grow.',
-        'I build with AI, not just on it. AI agents help me break a monster into small steps, draft and review. I make the calls, test everything, and understand every line I ship.',
+        "I build with AI, not just on it. AI agents help me break a monster into small steps, draft and review. I make the calls, test everything, and I don't ship what I can't explain.",
       ],
       proofBefore: 'This site is proof: built in small phases, ',
       proofLink: 'every commit public on GitHub',

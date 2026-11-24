@@ -32,7 +32,7 @@ export const de: Dictionary = {
     headlineStart: 'Früher baute ich Monster in meinem Kopf.',
     headlineEnd: 'Heute baue ich Dinge, die funktionieren.',
     subline:
-      'KI-Engineer mit Fokus auf Computer Vision und Medizin. Ich lerne, eine kleine Version nach der anderen zu liefern.',
+      'Ich mache aus echten Problemen funktionierende KI: Computer Vision, LLM-Pipelines und klassisches Machine Learning. Klein anfangen, testen, ausliefern.',
     caption: 'MSc AI @ JKU Linz · offen für Werkstudentenstellen in Wien, bis 20 h/Woche',
     ctaWork: 'Meine Projekte',
     ctaCv: 'Lebenslauf herunterladen',
@@ -71,7 +71,7 @@ export const de: Dictionary = {
       headlineEnd: 'Dann wachsen lassen.',
       body: [
         'Der Umzug nach Österreich hat das verändert. Weit weg von allem Vertrauten konnte ich mich nicht mehr vor mir selbst verstecken, also hörte ich auf, vor der Angst zu scheitern davonzulaufen. Heute baue ich zuerst die kleinste funktionierende Version, liefere sie aus und lasse sie dann wachsen.',
-        'Ich baue mit KI, nicht nur an KI. KI-Agenten helfen mir, ein Monster in kleine Schritte zu zerlegen, Entwürfe zu schreiben und zu prüfen. Die Entscheidungen treffe ich, ich teste alles und verstehe jede Zeile, die ich ausliefere.',
+        'Ich baue mit KI, nicht nur an KI. KI-Agenten helfen mir, ein Monster in kleine Schritte zu zerlegen, Entwürfe zu schreiben und zu prüfen. Die Entscheidungen treffe ich, ich teste alles und liefere nichts aus, was ich nicht erklären kann.',
       ],
       proofBefore: 'Diese Website ist der Beweis: in kleinen Phasen gebaut, ',
       proofLink: 'jeder Commit öffentlich auf GitHub',
